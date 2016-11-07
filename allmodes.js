@@ -69,7 +69,22 @@ if (require.main === module) {
                                         assists: player.values.assists.basic.displayValue,
                                         kills: player.values.kills.basic.displayValue,
                                         deaths: player.values.deaths.basic.displayValue,
-                                        score: player.values.score.basic.value
+                                        score: player.values.score.basic.value,
+                                        w1hash: player.extended.weapons[0].referenceId,
+                                        w1kills: player.extended.weapons[0].values.uniqueWeaponKills.basic.displayValue,
+                                        w1pkills: player.extended.weapons[0].values.uniqueWeaponPrecisionKills.basic.displayValue,
+                                        w2hash: player.extended.weapons[1].referenceId,
+                                        w2kills: player.extended.weapons[1].values.uniqueWeaponKills.basic.displayValue,
+                                        w2pkills: player.extended.weapons[1].values.uniqueWeaponPrecisionKills.basic.displayValue,
+                                        w3hash: player.extended.weapons[2].referenceId,
+                                        w3kills: player.extended.weapons[2].values.uniqueWeaponKills.basic.displayValue,
+                                        w3pkills: player.extended.weapons[2].values.uniqueWeaponPrecisionKills.basic.displayValue,
+                                        w4hash: player.extended.weapons[3].referenceId,
+                                        w4kills: player.extended.weapons[3].values.uniqueWeaponKills.basic.displayValue,
+                                        w4pkills: player.extended.weapons[3].values.uniqueWeaponPrecisionKills.basic.displayValue,
+                                        w5hash: player.extended.weapons[4].referenceId,
+                                        w5kills: player.extended.weapons[4].values.uniqueWeaponKills.basic.displayValue,
+                                        w5pkills: player.extended.weapons[4].values.uniqueWeaponPrecisionKills.basic.displayValue
                                     };
                                 }
                             });
