@@ -14,7 +14,13 @@ var activities = {
         "SKIRMISH": 9,
         "SALVAGE": 11,
         "DOUBLES": 15,
-        "ZONE_CONTROL": 28
+        "ZONE_CONTROL": 28,
+        "ALLPVP": 5,
+        "ALLMAYHEM": 25,
+        "MAYHEMCLASH": 26,
+        "MAYHEMRUMBLE": 27,
+        "SUPREMACY": 31,
+        "PRIVATEALL": 32
     };
 
 module.exports = {
