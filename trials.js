@@ -191,7 +191,7 @@ function getGames(membershipId, characterId, finishedCallback, previousDate, mat
     page = page || 0;
     var summaryUrl = "http://proxy.guardian.gg/Platform/Destiny/Stats/ActivityHistory/1/"
         + membershipId + "/"
-        + characterId + "/?mode=5&definitions=true&count=50"
+        + characterId + "/?mode=19&definitions=true&count=50"
         + "&page=" + page + "&lc=en";
 
     request({
