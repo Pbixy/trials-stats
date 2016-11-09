@@ -120,7 +120,10 @@ function getDetails(match) {
                     kills: player.values.kills.basic.displayValue,
                     deaths: player.values.deaths.basic.displayValue,
                     kdr: player.values.killsDeathsRatio.basic.value,
-                    kadr: player.values.killsDeathsAssists.basic.value
+                    kadr: player.values.killsDeathsAssists.basic.value,
+                    whash: [],
+                    wkills: [],
+                    wpkills: []
                 };
 
                 details.players[p.name] = p;
@@ -285,21 +288,9 @@ function initMapObject(date, map) {
         roundRatio: 0.0,
         playerKD: 0,
         playerKAD: 0,
-        w1hash: "",
-        w1kills: 0,
-        w1pkills: 0,
-        w2hash: "",
-        w2kills: 0,
-        w2pkills: 0,
-        w3hash: "",
-        w3kills: 0,
-        w3pkills: 0,
-        w4hash: "",
-        w4kills: 0,
-        w4pkills: 0,
-        w5hash: "",
-        w5kills: 0,
-        w5pkills: 0
+        whash: [],
+        wkills: [],
+        wpkills: []
     };
 }
 
@@ -346,21 +337,9 @@ function summarize(games) {
 
         currentMap.playerKD += g.players[userName].kdr;
         currentMap.playerKAD += g.players[userName].kadr;
-        currentMap.w1hash += g.players[userName].w1hash;
-        currentMap.w1kills += g.players[userName].w1kills;
-        currentMap.w1pkills += g.players[userName].w1pkills;
-        currentMap.w2hash += g.players[userName].w2hash;
-        currentMap.w2kills += g.players[userName].w2kills;
-        currentMap.w2pkills += g.players[userName].w2pkills;
-        currentMap.w3hash += g.players[userName].w3hash;
-        currentMap.w3kills += g.players[userName].w3kills;
-        currentMap.w3pkills += g.players[userName].w3pkills;
-        currentMap.w4hash += g.players[userName].w4hash;
-        currentMap.w4kills += g.players[userName].w4kills;
-        currentMap.w4pkills += g.players[userName].w4pkills;
-        currentMap.w5hash += g.players[userName].w5hash;
-        currentMap.w5kills += g.players[userName].w5kills;
-        currentMap.w5pkills += g.players[userName].w5pkills;
+        currentMap.whash[] += g.players[userName].whash[];
+        currentMap.wkills[] += g.players[userName].wkills[];
+        currentMap.wpkills[] += g.players[userName].wpkills[];
 
     });
 
@@ -375,15 +354,13 @@ function summarize(games) {
 
     var writer = csv({
         headers: ["Date", "Map", "Matches W", "Matches L", "Match %", "Rounds W",
-            "Rounds L", "Round %", "K/D", "K+A/D", "W1Hash", "W1Kills", "W1PKills",
-            "W2Hash", "W2Kills", "W2PKills", "W3Hash", "W3Kills", "W3PKills",
-            "W4Hash", "W4Kills", "W4PKills", "W5Hash", "W5Kills", "W5PKills"
+            "Rounds L", "Round %", "K/D", "K+A/D", "WHash", "WKills", "WPKills"
         ]
     });
 
     writer.pipe(fs.createWriteStream("./out/" + userName + ".summary.csv"));
     summary.forEach(function (r) {
-        writer.write([r.date, r.map, r.matchWins, r.matchLosses, r.matchRatio, r.roundWins, r.roundLosses, r.roundRatio, r.playerKD, r.playerKAD, r.w1hash, r.w1kills, r.w1pkills, r.w2hash, r.w2kills, r.w2pkills, r.w3hash, r.w3kills, r.w3pkills, r.w4hash, r.w4kills, r.w4pkills, r.w5hash, r.w5kills, r.w5pkills]);
+        writer.write([r.date, r.map, r.matchWins, r.matchLosses, r.matchRatio, r.roundWins, r.roundLosses, r.roundRatio, r.playerKD, r.playerKAD, r.whash[], r.wkills[], r.wpkills[]]);
     });
     writer.end();
 }
