@@ -121,7 +121,8 @@ function getDetails(match) {
                     deaths: player.values.deaths.basic.displayValue,
                     kdr: player.values.killsDeathsRatio.basic.value,
                     kadr: player.values.killsDeathsAssists.basic.value,
-                    weapons: {whash:[], wkills:[], wpkills:[]}
+                    weapons: {whash:[], wkills:[], wpkills:[]},
+                    myScore: player.values.score.basic.value
                 };
                 
                 if (!player.extended.weapons) {
@@ -165,12 +166,15 @@ function getDetails(match) {
 
                 if (!details.teams[p.teamName]) {
                     details.teams[p.teamName] = {
-                        score: player.values.score.basic.displayValue,
+                        score: p.myScore,
                         result: player.values.standing.basic.displayValue,
                         lightLevels: [],
                         elos: []
                     }
+                } else {
+                    details.teams[p.teamName].score += p.myScore;
                 }
+                    
                 details.teams[p.teamName].lightLevels.push(p.lightLevel);
 
             });
@@ -323,6 +327,7 @@ function initMapObject(date, map, aIId) {
         //roundLosses: 0,
         //roundRatio: 0.0,
         matchScore: "",
+        playerScore: 0,
         playerK: 0,
         playerD: 0,
         playerA: 0,
@@ -365,10 +370,10 @@ function summarize(games) {
 
         if (ourTeam.result === "Victory") {
             currentMap.matchWins += 1;
-            currentMap.matchScore += parseInt(ourTeam.score).toString() + "v" + parseInt(enemyTeam.score).toString();
+            currentMap.matchScore += ourTeam.score.toString() + "v" + enemyTeam.score.toString();
         } else {
             currentMap.matchLosses += 1;
-            currentMap.matchScore += parseInt(enemyTeam.score).toString() + "v" + parseInt(ourTeam.score).toString();
+            currentMap.matchScore += enemyTeam.score.toString() + "v" + ourTeam.score.toString();
         }
 
         //currentMap.roundWins += parseInt(ourTeam.score);
@@ -378,6 +383,7 @@ function summarize(games) {
         //currentMap.roundRatio = currentMap.roundWins / (currentMap.roundWins + currentMap.roundLosses);
 
         currentMap.activityInstanceId += g.id;
+        currentMap.playerScore += g.players[userName].myScore;
         currentMap.playerK += g.players[userName].kills;
         currentMap.playerD += g.players[userName].deaths;
         currentMap.playerA += g.players[userName].assists;
@@ -400,13 +406,13 @@ function summarize(games) {
 
     var writer = csv({
         headers: ["Date", "Map", "activityInstanceId", "Matches W", "Matches L", //"Match %", "Rounds W", "Rounds L", "Round %", 
-                  "Match Score", "K", "D", "A", "K/D", "K+A/D", "WHash", "WKills", "WPKills"
+                  "Match Score", "Player Score", "K", "D", "A", "K/D", "K+A/D", "WHash", "WKills", "WPKills"
         ]
     });
 
     writer.pipe(fs.createWriteStream("./out/" + userName + ".summary.csv"));
     summary.forEach(function (r) { //r.matchRatio, r.roundWins, r.roundLosses, r.roundRatio,
-        writer.write([r.date, r.map, r.activityInstanceId.toString(), r.matchWins, r.matchLosses, r.matchScore, r.playerK, r.playerD, r.playerA, r.playerKD, r.playerKAD, r.whash, r.wkills, r.wpkills]);
+        writer.write([r.date, r.map, r.activityInstanceId.toString(), r.matchWins, r.matchLosses, r.matchScore, r.playerScore, r.playerK, r.playerD, r.playerA, r.playerKD, r.playerKAD, r.whash, r.wkills, r.wpkills]);
     });
     writer.end();
 }
