@@ -121,11 +121,46 @@ function getDetails(match) {
                     deaths: player.values.deaths.basic.displayValue,
                     kdr: player.values.killsDeathsRatio.basic.value,
                     kadr: player.values.killsDeathsAssists.basic.value,
-                    whash: [],
-                    wkills: [],
-                    wpkills: []
+                    weapons: {whash:[], wkills:[], wpkills:[]}
                 };
-
+                
+                if (!player.extended.weapons) {
+                } else {
+                    if (player.extended.weapons.length > 0) {
+                        p.weapons.whash.push(player.extended.weapons[0].referenceId);
+                        p.weapons.wkills.push(player.extended.weapons[0].values.uniqueWeaponKills.basic.displayValue);
+                        p.weapons.wpkills.push(player.extended.weapons[0].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                        if (player.extended.weapons.length > 1) {
+                            p.weapons.whash.push(player.extended.weapons[1].referenceId);
+                            p.weapons.wkills.push(player.extended.weapons[1].values.uniqueWeaponKills.basic.displayValue);
+                            p.weapons.wpkills.push(player.extended.weapons[1].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                            if (player.extended.weapons.length > 2) {
+                                p.weapons.whash.push(player.extended.weapons[2].referenceId);
+                                p.weapons.wkills.push(player.extended.weapons[2].values.uniqueWeaponKills.basic.displayValue);
+                                p.weapons.wpkills.push(player.extended.weapons[2].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                                if (player.extended.weapons.length > 3) {
+                                    p.weapons.whash.push(player.extended.weapons[3].referenceId);
+                                    p.weapons.wkills.push(player.extended.weapons[3].values.uniqueWeaponKills.basic.displayValue);
+                                    p.weapons.wpkills.push(player.extended.weapons[3].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                                    if (player.extended.weapons.length > 4) {
+                                        p.weapons.whash.push(player.extended.weapons[4].referenceId);
+                                        p.weapons.wkills.push(player.extended.weapons[4].values.uniqueWeaponKills.basic.displayValue);
+                                        p.weapons.wpkills.push(player.extended.weapons[4].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                                        if (player.extended.weapons.length > 5) {
+                                            p.weapons.whash.push(player.extended.weapons[5].referenceId);
+                                            p.weapons.wkills.push(player.extended.weapons[5].values.uniqueWeaponKills.basic.displayValue);
+                                            p.weapons.wpkills.push(player.extended.weapons[5].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                                            if (player.extended.weapons.length > 6) {
+                                                 p.weapons.wpkills.push("too long " + player.extended.weapons.length);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 details.players[p.name] = p;
 
                 if (!details.teams[p.teamName]) {
@@ -288,9 +323,9 @@ function initMapObject(date, map) {
         roundRatio: 0.0,
         playerKD: 0,
         playerKAD: 0,
-        whash: [],
-        wkills: [],
-        wpkills: []
+        whash: "",
+        wkills: "",
+        wpkills: ""
     };
 }
 
@@ -337,50 +372,9 @@ function summarize(games) {
 
         currentMap.playerKD += g.players[userName].kdr;
         currentMap.playerKAD += g.players[userName].kadr;
-        if (!g.players[userName].whash) {
-        } else {
-            if (g.players[userName].whash.length > 0) {
-                currentMap.whash += "1:" + g.players[userName].whash[0];
-                currentMap.wkills += "1:" + g.players[userName].wkills[0];
-                currentMap.wpkills += "1:" + g.players[userName].wpkills[0];
-                if (g.players[userName].whash.length > 1) {
-                    currentMap.whash += ",2:" + g.players[userName].whash[1];
-                    currentMap.wkills += ",2:" + g.players[userName].wkills[1];
-                    currentMap.wpkills += ",2:" + g.players[userName].wpkills[1];
-                    if (g.players[userName].whash.length > 2) {
-                        currentMap.whash += ",3:" + g.players[userName].whash[2];
-                        currentMap.wkills += ",3:" + g.players[userName].wkills[2];
-                        currentMap.wpkills += ",3:" + g.players[userName].wpkills[2];
-                        if (g.players[userName].whash.length > 3) {
-                            currentMap.whash += ",4:" + g.players[userName].whash[3];
-                            currentMap.wkills += ",4:" + g.players[userName].wkills[3];
-                            currentMap.wpkills += ",4:" + g.players[userName].wpkills[3];
-                            if (g.players[userName].whash.length > 4) {
-                                currentMap.whash += ",5:" + g.players[userName].whash[4];
-                                currentMap.wkills += ",5:" + g.players[userName].wkills[4];
-                                currentMap.wpkills += ",5:" + g.players[userName].wpkills[4];
-                                if (g.players[userName].whash.length > 5) {
-                                    currentMap.whash += ",6:" + g.players[userName].whash[5];
-                                    currentMap.wkills += ",6:" + g.players[userName].wkills[5];
-                                    currentMap.wpkills += ",6:" + g.players[userName].wpkills[5];
-                                    if (g.players[userName].whash.length > 6) {
-                                        currentMap.whash += ",7:whash.length is " + g.players[userName].whash.length;
-                                    } else {
-                                    }
-                                } else {
-                                }
-                            } else {
-                            }
-                        } else {
-                        }
-                    } else {
-                    }
-                } else {
-                }
-            } else {
-            }
-        }
-                                
+        currentMap.whash += g.players[userName].weapons.whash;
+        currentMap.wkills += g.players[userName].weapons.wkills;
+        currentMap.wpkills += g.players[userName].weapons.wpkills;
 
     });
 
