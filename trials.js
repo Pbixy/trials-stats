@@ -337,32 +337,32 @@ function summarize(games) {
 
         currentMap.playerKD += g.players[userName].kdr;
         currentMap.playerKAD += g.players[userName].kadr;
-        if (g.players[userName].whash[].length > 0) {
+        if (g.players[userName].whash.length > 0) {
             currentMap.whash[0] += g.players[userName].whash[0];
             currentMap.wkills[0] += g.players[userName].wkills[0];
             currentMap.wpkills[0] += g.players[userName].wpkills[0];
-            if (g.players[userName].whash[].length > 1) {
+            if (g.players[userName].whash.length > 1) {
                 currentMap.whash[1] += g.players[userName].whash[1];
                 currentMap.wkills[1] += g.players[userName].wkills[1];
                 currentMap.wpkills[1] += g.players[userName].wpkills[1];
-                if (g.players[userName].whash[].length > 2) {
+                if (g.players[userName].whash.length > 2) {
                     currentMap.whash[2] += g.players[userName].whash[2];
                     currentMap.wkills[2] += g.players[userName].wkills[2];
                     currentMap.wpkills[2] += g.players[userName].wpkills[2];
-                    if (g.players[userName].whash[].length > 3) {
+                    if (g.players[userName].whash.length > 3) {
                         currentMap.whash[3] += g.players[userName].whash[3];
                         currentMap.wkills[3] += g.players[userName].wkills[3];
                         currentMap.wpkills[3] += g.players[userName].wpkills[3];
-                        if (g.players[userName].whash[].length > 4) {
+                        if (g.players[userName].whash.length > 4) {
                             currentMap.whash[4] += g.players[userName].whash[4];
                             currentMap.wkills[4] += g.players[userName].wkills[4];
                             currentMap.wpkills[4] += g.players[userName].wpkills[4];
-                            if (g.players[userName].whash[].length > 5) {
+                            if (g.players[userName].whash.length > 5) {
                                 currentMap.whash[5] += g.players[userName].whash[5];
                                 currentMap.wkills[5] += g.players[userName].wkills[5];
                                 currentMap.wpkills[5] += g.players[userName].wpkills[5];
-                                if (g.players[userName].whash[].length > 6) {
-                                    currentMap.whash[6] += "whash.length is " + g.players[userName].whash[].length;
+                                if (g.players[userName].whash.length > 6) {
+                                    currentMap.whash[6] += "whash.length is " + g.players[userName].whash.length;
                                 } else {
                                 }
                             } else {
