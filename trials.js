@@ -288,9 +288,9 @@ function initMapObject(date, map) {
         roundRatio: 0.0,
         playerKD: 0,
         playerKAD: 0,
-        whash: "",
-        wkills: "",
-        wpkills: ""
+        whash: [],
+        wkills: [],
+        wpkills: []
     };
 }
 
