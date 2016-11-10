@@ -127,29 +127,29 @@ function getDetails(match) {
                 if (!player.extended.weapons) {
                 } else {
                     if (player.extended.weapons.length > 0) {
-                        p.weapons.whash.push(player.extended.weapons[0].referenceId);
-                        p.weapons.wkills.push(player.extended.weapons[0].values.uniqueWeaponKills.basic.displayValue);
-                        p.weapons.wpkills.push(player.extended.weapons[0].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                        p.weapons.whash.push(player.extended.weapons[0].referenceId.toString());
+                        p.weapons.wkills.push(player.extended.weapons[0].values.uniqueWeaponKills.basic.displayValue.toString());
+                        p.weapons.wpkills.push(player.extended.weapons[0].values.uniqueWeaponPrecisionKills.basic.displayValue.toString());
                         if (player.extended.weapons.length > 1) {
-                            p.weapons.whash.push(player.extended.weapons[1].referenceId);
-                            p.weapons.wkills.push(player.extended.weapons[1].values.uniqueWeaponKills.basic.displayValue);
-                            p.weapons.wpkills.push(player.extended.weapons[1].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                            p.weapons.whash.push(player.extended.weapons[1].referenceId.toString());
+                            p.weapons.wkills.push(player.extended.weapons[1].values.uniqueWeaponKills.basic.displayValue.toString());
+                            p.weapons.wpkills.push(player.extended.weapons[1].values.uniqueWeaponPrecisionKills.basic.displayValue.toString());
                             if (player.extended.weapons.length > 2) {
-                                p.weapons.whash.push(player.extended.weapons[2].referenceId);
-                                p.weapons.wkills.push(player.extended.weapons[2].values.uniqueWeaponKills.basic.displayValue);
+                                p.weapons.whash.push(player.extended.weapons[2].referenceId.toString());
+                                p.weapons.wkills.push(player.extended.weapons[2].values.uniqueWeaponKills.basic.displayValue.toString());
                                 p.weapons.wpkills.push(player.extended.weapons[2].values.uniqueWeaponPrecisionKills.basic.displayValue);
                                 if (player.extended.weapons.length > 3) {
-                                    p.weapons.whash.push(player.extended.weapons[3].referenceId);
-                                    p.weapons.wkills.push(player.extended.weapons[3].values.uniqueWeaponKills.basic.displayValue);
-                                    p.weapons.wpkills.push(player.extended.weapons[3].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                                    p.weapons.whash.push(player.extended.weapons[3].referenceId.toString());
+                                    p.weapons.wkills.push(player.extended.weapons[3].values.uniqueWeaponKills.basic.displayValue.toString());
+                                    p.weapons.wpkills.push(player.extended.weapons[3].values.uniqueWeaponPrecisionKills.basic.displayValue.toString());
                                     if (player.extended.weapons.length > 4) {
-                                        p.weapons.whash.push(player.extended.weapons[4].referenceId);
-                                        p.weapons.wkills.push(player.extended.weapons[4].values.uniqueWeaponKills.basic.displayValue);
-                                        p.weapons.wpkills.push(player.extended.weapons[4].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                                        p.weapons.whash.push(player.extended.weapons[4].referenceId.toString());
+                                        p.weapons.wkills.push(player.extended.weapons[4].values.uniqueWeaponKills.basic.displayValue.toString());
+                                        p.weapons.wpkills.push(player.extended.weapons[4].values.uniqueWeaponPrecisionKills.basic.displayValue.toString());
                                         if (player.extended.weapons.length > 5) {
-                                            p.weapons.whash.push(player.extended.weapons[5].referenceId);
-                                            p.weapons.wkills.push(player.extended.weapons[5].values.uniqueWeaponKills.basic.displayValue);
-                                            p.weapons.wpkills.push(player.extended.weapons[5].values.uniqueWeaponPrecisionKills.basic.displayValue);
+                                            p.weapons.whash.push(player.extended.weapons[5].referenceId.toString());
+                                            p.weapons.wkills.push(player.extended.weapons[5].values.uniqueWeaponKills.basic.displayValue.toString());
+                                            p.weapons.wpkills.push(player.extended.weapons[5].values.uniqueWeaponPrecisionKills.basic.displayValue.toString());
                                             if (player.extended.weapons.length > 6) {
                                                  p.weapons.wpkills.push("too long " + player.extended.weapons.length);
                                             }
