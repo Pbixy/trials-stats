@@ -125,7 +125,7 @@ function getDetails(match) {
                     weapons: {whash:[], wkills:[], wpkills:[]},
                     myScore: player.values.score.basic.value,
                     myClass: player.player.characterClass,
-                    myMedals: {mCount: player.extended.values.allMedalsEarned.basic.value,
+                    myMedals: {mCount: (!!player.extended.values.allMedalsEarned ? player.extended.values.allMedalsEarned.basic.value:0),
                                mNames:[],
                                mValues:[],
                                mWeights:[]},
