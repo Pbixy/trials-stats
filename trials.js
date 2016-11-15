@@ -125,7 +125,8 @@ function getDetails(match) {
                     weapons: {whash:[], wkills:[], wpkills:[]},
                     myScore: player.values.score.basic.value,
                     myClass: player.player.characterClass,
-                    myMedals: {mCnt:[], mNames:[], mValues:[], mWeights:[]},
+                    myMedalsCnt: (!!player.extended.values.allMedalsEarned ? player.extended.values.allMedalsEarned.basic.value:0),
+                    myMedals: {mNames:[], mValues:[], mWeights:[]},
                     myStats: {avgKillDist: (!!player.extended.values.averageKillDistance ? player.extended.values.averageKillDistance.basic.value:0),
                               avgDeathDist: (!!player.extended.values.averageDeathDistance ? player.extended.values.averageDeathDistance.basic.value:0),
                               avgLifespan: (!!player.extended.values.averageLifespan ? player.extended.values.averageLifespan.basic.value:0),
@@ -190,9 +191,6 @@ function getDetails(match) {
                             }
                         }
                     }
-                }
-                if (!!player.extended.values.allMedalsEarned) {
-                    p.myMedals.mCnt.push(player.extended.values.allMedalsEarned.basic.value);
                 }
                 if (!!player.extended.values.medalsAbilityArcLightningKillMulti) {
                     p.myMedals.mNames.push("medalsAbilityArcLightningKillMulti");
@@ -1017,7 +1015,7 @@ function summarize(games) {
         currentMap.whash += g.players[userName].weapons.whash;
         currentMap.wkills += g.players[userName].weapons.wkills;
         currentMap.wpkills += g.players[userName].weapons.wpkills;
-        currentMap.mCount += (!!g.players[userName].myMedals.mCnt[0] ? g.players[userName].myMedals.mCnt[0]:0);
+        currentMap.mCount += g.players[userName].myMedalsCnt;
         currentMap.mNames += g.players[userName].myMedals.mNames;
         currentMap.mValues += g.players[userName].myMedals.mValues;
         currentMap.mWeights += g.players[userName].myMedals.mWeights;
