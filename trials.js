@@ -192,6 +192,11 @@ function getDetails(match) {
                         }
                     }
                 }
+                if (p.myMedalsCnt == 0) {
+                    p.myMedals.mNames.push("");
+                    p.myMedals.mValues.push(0);
+                    p.myMedals.mWeights.push(0);
+                }
                 if (!!player.extended.values.medalsAbilityArcLightningKillMulti) {
                     p.myMedals.mNames.push("medalsAbilityArcLightningKillMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsAbilityArcLightningKillMulti.basic.value);
