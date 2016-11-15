@@ -192,10 +192,10 @@ function getDetails(match) {
                         }
                     }
                 }
-                if (p.myMedalsCnt == 0) {
+                if (!player.extended.values.allMedalsEarned) {
                     p.myMedals.mNames.push("None");
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
+                    p.myMedals.mValues.push("0");
+                    p.myMedals.mWeights.push("0");
                 }
                 if (!!player.extended.values.medalsAbilityArcLightningKillMulti) {
                     p.myMedals.mNames.push("medalsAbilityArcLightningKillMulti");
