@@ -107,6 +107,7 @@ function getDetails(match) {
                 date: match.date.valueOf(),
                 id: match.instanceId,
                 map: match.mapName,
+                gameType: match.gameType,
                 players: {},
                 teams: {}
             };
@@ -128,21 +129,33 @@ function getDetails(match) {
                                mNames:[],
                                mValues:[],
                                mWeights:[]},
-                    myStats: {avgKillDist: player.extended.values.averageKillDistance.basic.value,
-                              avgLifespan: player.extended.values.averageLifespan.basic.value,
-                              avgScorePerKill: player.extended.values.averageScorePerKill.basic.value,
-                              avgScorePerLife: player.extended.values.averageScorePerLife.basic.value,
-                              longestKillSpree: player.extended.values.longestKillSpree.basic.value,
-                              longestSingleLife: player.extended.values.longestSingleLife.basic.value,
-                              secondsPlayed: player.extended.values.secondsPlayed.basic.value,
-                              suicides: player.extended.values.suicides.basic.value,
-                              totalKillDistance: player.extended.values.totalKillDistance.basic.value,
-                              weaponBestType: player.extended.values.weaponBestType.basic.displayValue,
-                              weaponKillsGrenade: player.extended.values.weaponKillsGrenade.basic.value,
-                              weaponKillsMelee: player.extended.values.weaponKillsMelee.basic.value,
-                              weaponKillsSuper: player.extended.values.weaponKillsSuper.basic.value,
-                              zonesCaptured: player.extended.values.zonesCaptured.basic.value,
-                              zonesNeutralized: player.extended.values.zonesNeutralized.basic.value}          
+                    myStats: {avgKillDist: (!!player.extended.values.averageKillDistance ? player.extended.values.averageKillDistance.basic.value:0),
+                              avgDeathDist: (!!player.extended.values.averageDeathDistance ? player.extended.values.averageDeathDistance.basic.value:0),
+                              avgLifespan: (!!player.extended.values.averageLifespan ? player.extended.values.averageLifespan.basic.value:0),
+                              avgScorePerKill: (!!player.extended.values.averageScorePerKill ? player.extended.values.averageScorePerKill.basic.value:0),
+                              avgScorePerLife: (!!player.extended.values.averageScorePerLife ? player.extended.values.averageScorePerLife.basic.value:0),
+                              longestKillSpree: (!!player.extended.values.longestKillSpree ? player.extended.values.longestKillSpree.basic.value:0),
+                              longestSingleLife: (!!player.extended.values.longestSingleLife ? player.extended.values.longestSingleLife.basic.value:0),
+                              secondsPlayed: (!!player.extended.values.secondsPlayed ? player.extended.values.secondsPlayed.basic.value:0),
+                              suicides: (!!player.extended.values.suicides ? player.extended.values.suicides.basic.value:0),
+                              totalKillDistance: (!!player.extended.values.totalKillDistance ? player.extended.values.totalKillDistance.basic.value:0),
+                              weaponBestType: (!!player.extended.values.weaponBestType ? player.extended.values.weaponBestType.basic.displayValue:0),
+                              weaponKillsGrenade: (!!player.extended.values.weaponKillGrenade ? player.extended.values.weaponKillsGrenade.basic.value:0),
+                              weaponKillsMelee: (!!player.extended.values.weaponKillMelee ? player.extended.values.weaponKillsMelee.basic.value:0),
+                              weaponKillsSuper: (!!player.extended.values.weaponKillSuper ? player.extended.values.weaponKillsSuper.basic.value:0),
+                              zonesCaptured: (!!player.extended.values.zonesCaptured ? player.extended.values.zonesCaptured.basic.value:0),
+                              zonesNeutralized: (!!player.extended.values.zonesNeutralized ? player.extended.values.zonesNeutralized.basic.value:0),
+                              sparksCaptured: (!!player.extended.values.sparksCaptured ? player.extended.values.sparksCaptured.basic.value:0),
+                              slamDunks: (!!player.extended.values.slamDunks ? player.extended.values.slamDunks.basic.value:0),
+                              styleDunks: (!!player.extended.values.styleDunks ? player.extended.values.styleDunks.basic.value:0),
+                              dunkKills: (!!player.extended.values.dunkKills ? player.extended.values.dunkKills.basic.value:0),
+                              carrierKills: (!!player.extended.values.carrierKills ? player.extended.values.carrierKills.basic.value:0),
+                              tagCaptures: (!!player.extended.values.tagCaptures ? player.extended.values.tagCaptures.basic.value:0),
+                              capturedYourOwnKill: (!!player.extended.values.capturedYourOwnKill ? player.extended.values.capturedYourOwnKill.basic.value:0),
+                              lostTagToOpponent: (!!player.extended.values.lostTagToOpponent ? player.extended.values.lostTagToOpponent.basic.value:0),
+                              recoveredOwnDeadTag: (!!player.extended.values.recoveredOwnDeadTag ? player.extended.values.recoveredOwnDeadTag.basic.value:0),
+                              tagsCapturedPerTagLost: (!!player.extended.values.tagsCapturedPerTagLost ? player.extended.values.tagsCapturedPerTagLost.basic.value:0)
+                             }          
                 };
                 
                 if (!player.extended.weapons) {
@@ -181,883 +194,553 @@ function getDetails(match) {
                         }
                     }
                 }
-                p.myMedals.mNames.push("medalsAbilityArcLightningKillMulti");
-                if (!player.extended.values.medalsAbilityArcLightningKillMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsAbilityArcLightningKillMulti) {
+                    p.myMedals.mNames.push("medalsAbilityArcLightningKillMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsAbilityArcLightningKillMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsAbilityArcLightningKillMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsAbilityGhostGunKillMulti");
-                if (!player.extended.values.medalsAbilityGhostGunKillMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsAbilityGhostGunKillMulti) {
+                    p.myMedals.mNames.push("medalsAbilityGhostGunKillMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsAbilityGhostGunKillMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsAbilityGhostGunKillMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsAbilityHavocKillMulti");
-                if (!player.extended.values.medalsAbilityHavocKillMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsAbilityHavocKillMulti) {
+                    p.myMedals.mNames.push("medalsAbilityHavocKillMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsAbilityHavocKillMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsAbilityHavocKillMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsAbilityNovaBombKillMulti");
-                if (!player.extended.values.medalsAbilityNovaBombKillMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsAbilityNovaBombKillMulti) {
+                    p.myMedals.mNames.push("medalsAbilityNovaBombKillMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsAbilityNovaBombKillMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsAbilityNovaBombKillMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsAbilityRadianceGrenadeKillMulti");
-                if (!player.extended.values.medalsAbilityRadianceGrenadeKillMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsAbilityRadianceGrenadeKillMulti) {
+                    p.myMedals.mNames.push("medalsAbilityRadianceGrenadeKillMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsAbilityRadianceGrenadeKillMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsAbilityRadianceGrenadeKillMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsAbilityShadowStrikeKillMulti");
-                if (!player.extended.values.medalsAbilityShadowStrikeKillMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsAbilityShadowStrikeKillMulti) {
+                    p.myMedals.mNames.push("medalsAbilityShadowStrikeKillMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsAbilityShadowStrikeKillMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsAbilityShadowStrikeKillMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsAbilityThermalHammerKillMulti");
-                if (!player.extended.values.medalsAbilityThermalHammerKillMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsAbilityThermalHammerKillMulti) {
+                    p.myMedals.mNames.push("medalsAbilityThermalHammerKillMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsAbilityThermalHammerKillMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsAbilityThermalHammerKillMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsAbilityVoidBowKillMulti");
-                if (!player.extended.values.medalsAbilityVoidBowKillMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsAbilityVoidBowKillMulti) {
+                    p.myMedals.mNames.push("medalsAbilityVoidBowKillMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsAbilityVoidBowKillMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsAbilityVoidBowKillMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsAbilityWardDeflect");
-                if (!player.extended.values.medalsAbilityWardDeflect) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsAbilityWardDeflect) {
+                    p.myMedals.mNames.push("medalsAbilityWardDeflect");
                     p.myMedals.mValues.push(player.extended.values.medalsAbilityWardDeflect.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsAbilityWardDeflect.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteControlMostCaptures");
-                if (!player.extended.values.medalsActivityCompleteControlMostCaptures) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteControlMostCaptures) {
+                    p.myMedals.mNames.push("medalsActivityCompleteControlMostCaptures");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteControlMostCaptures.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteControlMostCaptures.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteCycle");
-                if (!player.extended.values.medalsActivityCompleteCycle) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteCycle) {
+                    p.myMedals.mNames.push("medalsActivityCompleteCycle");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteCycle.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteCycle.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteDeathless");
-                if (!player.extended.values.medalsActivityCompleteDeathless) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteDeathless) {
+                    p.myMedals.mNames.push("medalsActivityCompleteDeathless");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteDeathless.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteDeathless.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteHighestScoreLosing");
-                if (!player.extended.values.medalsActivityCompleteHighestScoreLosing) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteHighestScoreLosing) {
+                    p.myMedals.mNames.push("medalsActivityCompleteHighestScoreLosing");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteHighestScoreLosing.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteHighestScoreLosing.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteHighestScoreWinning");
-                if (!player.extended.values.medalsActivityCompleteHighestScoreWinning) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteHighestScoreWinning) {
+                    p.myMedals.mNames.push("medalsActivityCompleteHighestScoreWinning");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteHighestScoreWinning.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteHighestScoreWinning.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteLoneWolf");
-                if (!player.extended.values.medalsActivityCompleteLoneWolf) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteLoneWolf) {
+                    p.myMedals.mNames.push("medalsActivityCompleteLoneWolf");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteLoneWolf.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteLoneWolf.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteSalvageMostCancels");
-                if (!player.extended.values.medalsActivityCompleteSalvageMostCancels) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteSalvageMostCancels) {
+                    p.myMedals.mNames.push("medalsActivityCompleteSalvageMostCancels");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteSalvageMostCancels.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteSalvageMostCancels.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteSalvageShutout");
-                if (!player.extended.values.medalsActivityCompleteSalvageShutout) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteSalvageShutout) {
+                    p.myMedals.mNames.push("medalsActivityCompleteSalvageShutout");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteSalvageShutout.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteSalvageShutout.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteSingularityPerfectRunner");
-                if (!player.extended.values.medalsActivityCompleteSingularityPerfectRunner) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteSingularityPerfectRunner) {
+                    p.myMedals.mNames.push("medalsActivityCompleteSingularityPerfectRunner");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteSingularityPerfectRunner.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteSingularityPerfectRunner.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictory");
-                if (!player.extended.values.medalsActivityCompleteVictory) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictory) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictory");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictory.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictory.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryBlowout");
-                if (!player.extended.values.medalsActivityCompleteVictoryBlowout) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryBlowout) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryBlowout");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryBlowout.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryBlowout.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryElimination");
-                if (!player.extended.values.medalsActivityCompleteVictoryElimination) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryElimination) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryElimination");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryElimination.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryElimination.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryEliminationPerfect");
-                if (!player.extended.values.medalsActivityCompleteVictoryEliminationPerfect) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryEliminationPerfect) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryEliminationPerfect");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryEliminationPerfect.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryEliminationPerfect.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryEliminationShutout");
-                if (!player.extended.values.medalsActivityCompleteVictoryEliminationShutout) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryEliminationShutout) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryEliminationShutout");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryEliminationShutout.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryEliminationShutout.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryExtraLastSecond");
-                if (!player.extended.values.medalsActivityCompleteVictoryExtraLastSecond) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryExtraLastSecond) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryExtraLastSecond");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryExtraLastSecond.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryExtraLastSecond.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryLastSecond");
-                if (!player.extended.values.medalsActivityCompleteVictoryLastSecond) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryLastSecond) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryLastSecond");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryLastSecond.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryLastSecond.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryMercy");
-                if (!player.extended.values.medalsActivityCompleteVictoryMercy) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryMercy) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryMercy");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryMercy.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryMercy.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryRumble");
-                if (!player.extended.values.medalsActivityCompleteVictoryRumble) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryRumble) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryRumble");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryRumble.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryRumble.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryRumbleBlowout");
-                if (!player.extended.values.medalsActivityCompleteVictoryRumbleBlowout) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryRumbleBlowout) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryRumbleBlowout");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryRumbleBlowout.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryRumbleBlowout.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryRumbleLastSecond");
-                if (!player.extended.values.medalsActivityCompleteVictoryRumbleLastSecond) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryRumbleLastSecond) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryRumbleLastSecond");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryRumbleLastSecond.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryRumbleLastSecond.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictoryRumbleSuddenDeath");
-                if (!player.extended.values.medalsActivityCompleteVictoryRumbleSuddenDeath) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictoryRumbleSuddenDeath) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictoryRumbleSuddenDeath");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictoryRumbleSuddenDeath.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictoryRumbleSuddenDeath.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsActivityCompleteVictorySuddenDeath");
-                if (!player.extended.values.medalsActivityCompleteVictorySuddenDeath) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsActivityCompleteVictorySuddenDeath) {
+                    p.myMedals.mNames.push("medalsActivityCompleteVictorySuddenDeath");
                     p.myMedals.mValues.push(player.extended.values.medalsActivityCompleteVictorySuddenDeath.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsActivityCompleteVictorySuddenDeath.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsAvenger");
-                if (!player.extended.values.medalsAvenger) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsAvenger) {
+                    p.myMedals.mNames.push("medalsAvenger");
                     p.myMedals.mValues.push(player.extended.values.medalsAvenger.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsAvenger.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsBuddyResurrectionMulti");
-                if (!player.extended.values.medalsBuddyResurrectionMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsBuddyResurrectionMulti) {
+                    p.myMedals.mNames.push("medalsBuddyResurrectionMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsBuddyResurrectionMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsBuddyResurrectionMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsBuddyResurrectionSpree");
-                if (!player.extended.values.medalsBuddyResurrectionSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsBuddyResurrectionSpree) {
+                    p.myMedals.mNames.push("medalsBuddyResurrectionSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsBuddyResurrectionSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsBuddyResurrectionSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsCloseCallTalent");
-                if (!player.extended.values.medalsCloseCallTalent) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsCloseCallTalent) {
+                    p.myMedals.mNames.push("medalsCloseCallTalent");
                     p.myMedals.mValues.push(player.extended.values.medalsCloseCallTalent.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsCloseCallTalent.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsComebackKill");
-                if (!player.extended.values.medalsComebackKill) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsComebackKill) {
+                    p.myMedals.mNames.push("medalsComebackKill");
                     p.myMedals.mValues.push(player.extended.values.medalsComebackKill.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsComebackKill.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsDominationKill");
-                if (!player.extended.values.medalsDominationKill) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsDominationKill) {
+                    p.myMedals.mNames.push("medalsDominationKill");
                     p.myMedals.mValues.push(player.extended.values.medalsDominationKill.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsDominationKill.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsDominionZoneCapturedSpree");
-                if (!player.extended.values.medalsDominionZoneCapturedSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsDominionZoneCapturedSpree) {
+                    p.myMedals.mNames.push("medalsDominionZoneCapturedSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsDominionZoneCapturedSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsDominionZoneCapturedSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsDominionZoneDefenseKillSpree");
-                if (!player.extended.values.medalsDominionZoneDefenseKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsDominionZoneDefenseKillSpree) {
+                    p.myMedals.mNames.push("medalsDominionZoneDefenseKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsDominionZoneDefenseKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsDominionZoneDefenseKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsDominionZoneOffenseKillSpree");
-                if (!player.extended.values.medalsDominionZoneOffenseKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsDominionZoneOffenseKillSpree) {
+                    p.myMedals.mNames.push("medalsDominionZoneOffenseKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsDominionZoneOffenseKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsDominionZoneOffenseKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsEliminationLastStandKill");
-                if (!player.extended.values.medalsEliminationLastStandKill) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsEliminationLastStandKill) {
+                    p.myMedals.mNames.push("medalsEliminationLastStandKill");
                     p.myMedals.mValues.push(player.extended.values.medalsEliminationLastStandKill.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsEliminationLastStandKill.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsEliminationLastStandRevive");
-                if (!player.extended.values.medalsEliminationLastStandRevive) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsEliminationLastStandRevive) {
+                    p.myMedals.mNames.push("medalsEliminationLastStandRevive");
                     p.myMedals.mValues.push(player.extended.values.medalsEliminationLastStandRevive.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsEliminationLastStandRevive.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsEliminationWipeQuick");
-                if (!player.extended.values.medalsEliminationWipeQuick) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsEliminationWipeQuick) {
+                    p.myMedals.mNames.push("medalsEliminationWipeQuick");
                     p.myMedals.mValues.push(player.extended.values.medalsEliminationWipeQuick.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsEliminationWipeQuick.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsEliminationWipeSolo");
-                if (!player.extended.values.medalsEliminationWipeSolo) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsEliminationWipeSolo) {
+                    p.myMedals.mNames.push("medalsEliminationWipeSolo");
                     p.myMedals.mValues.push(player.extended.values.medalsEliminationWipeSolo.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsEliminationWipeSolo.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsFirstBlood");
-                if (!player.extended.values.medalsFirstBlood) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsFirstBlood) {
+                    p.myMedals.mNames.push("medalsFirstBlood");
                     p.myMedals.mValues.push(player.extended.values.medalsFirstBlood.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsFirstBlood.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsFirstPlaceKillSpree");
-                if (!player.extended.values.medalsFirstPlaceKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsFirstPlaceKillSpree) {
+                    p.myMedals.mNames.push("medalsFirstPlaceKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsFirstPlaceKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsFirstPlaceKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsGrenadeKillStick");
-                if (!player.extended.values.medalsGrenadeKillStick) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsGrenadeKillStick) {
+                    p.myMedals.mNames.push("medalsGrenadeKillStick");
                     p.myMedals.mValues.push(player.extended.values.medalsGrenadeKillStick.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsGrenadeKillStick.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsHazardKill");
-                if (!player.extended.values.medalsHazardKill) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsHazardKill) {
+                    p.myMedals.mNames.push("medalsHazardKill");
                     p.myMedals.mValues.push(player.extended.values.medalsHazardKill.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsHazardKill.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsHunterKillInvisible");
-                if (!player.extended.values.medalsHunterKillInvisible) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsHunterKillInvisible) {
+                    p.myMedals.mNames.push("medalsHunterKillInvisible");
                     p.myMedals.mValues.push(player.extended.values.medalsHunterKillInvisible.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsHunterKillInvisible.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillAssistSpree");
-                if (!player.extended.values.medalsKillAssistSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillAssistSpree) {
+                    p.myMedals.mNames.push("medalsKillAssistSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsKillAssistSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillAssistSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillAssistSpreeFfa");
-                if (!player.extended.values.medalsKillAssistSpreeFfa) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillAssistSpreeFfa) {
+                    p.myMedals.mNames.push("medalsKillAssistSpreeFfa");
                     p.myMedals.mValues.push(player.extended.values.medalsKillAssistSpreeFfa.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillAssistSpreeFfa.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillHeadshot");
-                if (!player.extended.values.medalsKillHeadshot) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillHeadshot) {
+                    p.myMedals.mNames.push("medalsKillHeadshot");
                     p.myMedals.mValues.push(player.extended.values.medalsKillHeadshot.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillHeadshot.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKilljoy");
-                if (!player.extended.values.medalsKilljoy) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKilljoy) {
+                    p.myMedals.mNames.push("medalsKilljoy");
                     p.myMedals.mValues.push(player.extended.values.medalsKilljoy.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKilljoy.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKilljoyMega");
-                if (!player.extended.values.medalsKilljoyMega) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKilljoyMega) {
+                    p.myMedals.mNames.push("medalsKilljoyMega");
                     p.myMedals.mValues.push(player.extended.values.medalsKilljoyMega.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKilljoyMega.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillMulti2");
-                if (!player.extended.values.medalsKillMulti2) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillMulti2) {
+                    p.myMedals.mNames.push("medalsKillMulti2");
                     p.myMedals.mValues.push(player.extended.values.medalsKillMulti2.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillMulti2.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillMulti3");
-                if (!player.extended.values.medalsKillMulti3) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillMulti3) {
+                    p.myMedals.mNames.push("medalsKillMulti3");
                     p.myMedals.mValues.push(player.extended.values.medalsKillMulti3.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillMulti3.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillMulti4");
-                if (!player.extended.values.medalsKillMulti4) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillMulti4) {
+                    p.myMedals.mNames.push("medalsKillMulti4");
                     p.myMedals.mValues.push(player.extended.values.medalsKillMulti4.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillMulti4.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillMulti5");
-                if (!player.extended.values.medalsKillMulti5) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillMulti5) {
+                    p.myMedals.mNames.push("medalsKillMulti5");
                     p.myMedals.mValues.push(player.extended.values.medalsKillMulti5.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillMulti5.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillMulti6");
-                if (!player.extended.values.medalsKillMulti6) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillMulti6) {
+                    p.myMedals.mNames.push("medalsKillMulti6");
                     p.myMedals.mValues.push(player.extended.values.medalsKillMulti6.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillMulti6.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillMulti7");
-                if (!player.extended.values.medalsKillMulti7) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillMulti7) {
+                    p.myMedals.mNames.push("medalsKillMulti7");
                     p.myMedals.mValues.push(player.extended.values.medalsKillMulti7.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillMulti7.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillPostmortem");
-                if (!player.extended.values.medalsKillPostmortem) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillPostmortem) {
+                    p.myMedals.mNames.push("medalsKillPostmortem");
                     p.myMedals.mValues.push(player.extended.values.medalsKillPostmortem.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillPostmortem.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillSpree1");
-                if (!player.extended.values.medalsKillSpree1) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillSpree1) {
+                    p.myMedals.mNames.push("medalsKillSpree1");
                     p.myMedals.mValues.push(player.extended.values.medalsKillSpree1.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillSpree1.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillSpree2");
-                if (!player.extended.values.medalsKillSpree2) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillSpree2) {
+                    p.myMedals.mNames.push("medalsKillSpree2");
                     p.myMedals.mValues.push(player.extended.values.medalsKillSpree2.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillSpree2.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillSpree3");
-                if (!player.extended.values.medalsKillSpree3) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillSpree3) {
+                    p.myMedals.mNames.push("medalsKillSpree3");
                     p.myMedals.mValues.push(player.extended.values.medalsKillSpree3.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillSpree3.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillSpreeAbsurd");
-                if (!player.extended.values.medalsKillSpreeAbsurd) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillSpreeAbsurd) {
+                    p.myMedals.mNames.push("medalsKillSpreeAbsurd");
                     p.myMedals.mValues.push(player.extended.values.medalsKillSpreeAbsurd.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillSpreeAbsurd.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsKillSpreeNoDamage");
-                if (!player.extended.values.medalsKillSpreeNoDamage) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsKillSpreeNoDamage) {
+                    p.myMedals.mNames.push("medalsKillSpreeNoDamage");
                     p.myMedals.mValues.push(player.extended.values.medalsKillSpreeNoDamage.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsKillSpreeNoDamage.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsMeleeKillHunterThrowingKnifeHeadshot");
-                if (!player.extended.values.medalsMeleeKillHunterThrowingKnifeHeadshot) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsMeleeKillHunterThrowingKnifeHeadshot) {
+                    p.myMedals.mNames.push("medalsMeleeKillHunterThrowingKnifeHeadshot");
                     p.myMedals.mValues.push(player.extended.values.medalsMeleeKillHunterThrowingKnifeHeadshot.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsMeleeKillHunterThrowingKnifeHeadshot.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsPaybackKill");
-                if (!player.extended.values.medalsPaybackKill) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsPaybackKill) {
+                    p.myMedals.mNames.push("medalsPaybackKill");
                     p.myMedals.mValues.push(player.extended.values.medalsPaybackKill.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsPaybackKill.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsRadianceShutdown");
-                if (!player.extended.values.medalsRadianceShutdown) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsRadianceShutdown) {
+                    p.myMedals.mNames.push("medalsRadianceShutdown");
                     p.myMedals.mValues.push(player.extended.values.medalsRadianceShutdown.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsRadianceShutdown.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsRescue");
-                if (!player.extended.values.medalsRescue) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsRescue) {
+                    p.myMedals.mNames.push("medalsRescue");
                     p.myMedals.mValues.push(player.extended.values.medalsRescue.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsRescue.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSalvageProbeCanceled");
-                if (!player.extended.values.medalsSalvageProbeCanceled) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSalvageProbeCanceled) {
+                    p.myMedals.mNames.push("medalsSalvageProbeCanceled");
                     p.myMedals.mValues.push(player.extended.values.medalsSalvageProbeCanceled.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSalvageProbeCanceled.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSalvageProbeCompleteSpree");
-                if (!player.extended.values.medalsSalvageProbeCompleteSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSalvageProbeCompleteSpree) {
+                    p.myMedals.mNames.push("medalsSalvageProbeCompleteSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsSalvageProbeCompleteSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSalvageProbeCompleteSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSalvageProbeDefenseKill");
-                if (!player.extended.values.medalsSalvageProbeDefenseKill) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSalvageProbeDefenseKill) {
+                    p.myMedals.mNames.push("medalsSalvageProbeDefenseKill");
                     p.myMedals.mValues.push(player.extended.values.medalsSalvageProbeDefenseKill.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSalvageProbeDefenseKill.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSalvageProbeOffenseKillMulti");
-                if (!player.extended.values.medalsSalvageProbeOffenseKillMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSalvageProbeOffenseKillMulti) {
+                    p.myMedals.mNames.push("medalsSalvageProbeOffenseKillMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsSalvageProbeOffenseKillMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSalvageProbeOffenseKillMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSalvageZoneCapturedSpree");
-                if (!player.extended.values.medalsSalvageZoneCapturedSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSalvageZoneCapturedSpree) {
+                    p.myMedals.mNames.push("medalsSalvageZoneCapturedSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsSalvageZoneCapturedSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSalvageZoneCapturedSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSingularityFlagCaptureMulti");
-                if (!player.extended.values.medalsSingularityFlagCaptureMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSingularityFlagCaptureMulti) {
+                    p.myMedals.mNames.push("medalsSingularityFlagCaptureMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsSingularityFlagCaptureMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSingularityFlagCaptureMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSingularityFlagHolderKilledClose");
-                if (!player.extended.values.medalsSingularityFlagHolderKilledClose) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSingularityFlagHolderKilledClose) {
+                    p.myMedals.mNames.push("medalsSingularityFlagHolderKilledClose");
                     p.myMedals.mValues.push(player.extended.values.medalsSingularityFlagHolderKilledClose.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSingularityFlagHolderKilledClose.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSingularityFlagHolderKilledMulti");
-                if (!player.extended.values.medalsSingularityFlagHolderKilledMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSingularityFlagHolderKilledMulti) {
+                    p.myMedals.mNames.push("medalsSingularityFlagHolderKilledMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsSingularityFlagHolderKilledMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSingularityFlagHolderKilledMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSingularityRunnerDefenseMulti");
-                if (!player.extended.values.medalsSingularityRunnerDefenseMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSingularityRunnerDefenseMulti) {
+                    p.myMedals.mNames.push("medalsSingularityRunnerDefenseMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsSingularityRunnerDefenseMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSingularityRunnerDefenseMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSupremacy");
-                if (!player.extended.values.medalsSupremacy) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSupremacy) {
+                    p.myMedals.mNames.push("medalsSupremacy");
                     p.myMedals.mValues.push(player.extended.values.medalsSupremacy.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSupremacy.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSupremacyConfirmStreakLarge");
-                if (!player.extended.values.medalsSupremacyConfirmStreakLarge) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSupremacyConfirmStreakLarge) {
+                    p.myMedals.mNames.push("medalsSupremacyConfirmStreakLarge");
                     p.myMedals.mValues.push(player.extended.values.medalsSupremacyConfirmStreakLarge.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSupremacyConfirmStreakLarge.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSupremacyDenyMulti");
-                if (!player.extended.values.medalsSupremacyDenyMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSupremacyDenyMulti) {
+                    p.myMedals.mNames.push("medalsSupremacyDenyMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsSupremacyDenyMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSupremacyDenyMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSupremacyMostConfirms");
-                if (!player.extended.values.medalsSupremacyMostConfirms) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSupremacyMostConfirms) {
+                    p.myMedals.mNames.push("medalsSupremacyMostConfirms");
                     p.myMedals.mValues.push(player.extended.values.medalsSupremacyMostConfirms.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSupremacyMostConfirms.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSupremacyMostDenies");
-                if (!player.extended.values.medalsSupremacyMostDenies) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSupremacyMostDenies) {
+                    p.myMedals.mNames.push("medalsSupremacyMostDenies");
                     p.myMedals.mValues.push(player.extended.values.medalsSupremacyMostDenies.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSupremacyMostDenies.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSupremacyMostSelfConfirms");
-                if (!player.extended.values.medalsSupremacyMostSelfConfirms) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSupremacyMostSelfConfirms) {
+                    p.myMedals.mNames.push("medalsSupremacyMostSelfConfirms");
                     p.myMedals.mValues.push(player.extended.values.medalsSupremacyMostSelfConfirms.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSupremacyMostSelfConfirms.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSupremacyMulti");
-                if (!player.extended.values.medalsSupremacyMulti) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSupremacyMulti) {
+                    p.myMedals.mNames.push("medalsSupremacyMulti");
                     p.myMedals.mValues.push(player.extended.values.medalsSupremacyMulti.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSupremacyMulti.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSupremacyNeverCollected");
-                if (!player.extended.values.medalsSupremacyNeverCollected) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSupremacyNeverCollected) {
+                    p.myMedals.mNames.push("medalsSupremacyNeverCollected");
                     p.myMedals.mValues.push(player.extended.values.medalsSupremacyNeverCollected.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSupremacyNeverCollected.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsSupremacySelfDeny");
-                if (!player.extended.values.medalsSupremacySelfDeny) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsSupremacySelfDeny) {
+                    p.myMedals.mNames.push("medalsSupremacySelfDeny");
                     p.myMedals.mValues.push(player.extended.values.medalsSupremacySelfDeny.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsSupremacySelfDeny.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsTeamDominationHold1m");
-                if (!player.extended.values.medalsTeamDominationHold1m) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsTeamDominationHold1m) {
+                    p.myMedals.mNames.push("medalsTeamDominationHold1m");
                     p.myMedals.mValues.push(player.extended.values.medalsTeamDominationHold1m.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsTeamDominationHold1m.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsTeamKillSpree");
-                if (!player.extended.values.medalsTeamKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsTeamKillSpree) {
+                    p.myMedals.mNames.push("medalsTeamKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsTeamKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsTeamKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsUnknown");
-                if (!player.extended.values.medalsUnknown) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsUnknown) {
+                    p.myMedals.mNames.push("medalsUnknown");
                     p.myMedals.mValues.push(player.extended.values.medalsUnknown.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsUnknown.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsVehicleFotcTurretKillSpree");
-                if (!player.extended.values.medalsVehicleFotcTurretKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsVehicleFotcTurretKillSpree) {
+                    p.myMedals.mNames.push("medalsVehicleFotcTurretKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsVehicleFotcTurretKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsVehicleFotcTurretKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsVehicleInterceptorKillSplatter");
-                if (!player.extended.values.medalsVehicleInterceptorKillSplatter) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsVehicleInterceptorKillSplatter) {
+                    p.myMedals.mNames.push("medalsVehicleInterceptorKillSplatter");
                     p.myMedals.mValues.push(player.extended.values.medalsVehicleInterceptorKillSplatter.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsVehicleInterceptorKillSplatter.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsVehicleInterceptorKillSpree");
-                if (!player.extended.values.medalsVehicleInterceptorKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsVehicleInterceptorKillSpree) {
+                    p.myMedals.mNames.push("medalsVehicleInterceptorKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsVehicleInterceptorKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsVehicleInterceptorKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsVehiclePikeKillSplatter");
-                if (!player.extended.values.medalsVehiclePikeKillSplatter) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsVehiclePikeKillSplatter) {
+                    p.myMedals.mNames.push("medalsVehiclePikeKillSplatter");
                     p.myMedals.mValues.push(player.extended.values.medalsVehiclePikeKillSplatter.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsVehiclePikeKillSplatter.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsVehiclePikeKillSpree");
-                if (!player.extended.values.medalsVehiclePikeKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsVehiclePikeKillSpree) {
+                    p.myMedals.mNames.push("medalsVehiclePikeKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsVehiclePikeKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsVehiclePikeKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsVehicleSparrowKillSplatter");
-                if (!player.extended.values.medalsVehicleSparrowKillSplatter) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsVehicleSparrowKillSplatter) {
+                    p.myMedals.mNames.push("medalsVehicleSparrowKillSplatter");
                     p.myMedals.mValues.push(player.extended.values.medalsVehicleSparrowKillSplatter.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsVehicleSparrowKillSplatter.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponAutoRifleKillSpree");
-                if (!player.extended.values.medalsWeaponAutoRifleKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponAutoRifleKillSpree) {
+                    p.myMedals.mNames.push("medalsWeaponAutoRifleKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponAutoRifleKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponAutoRifleKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponFusionRifleKillSpree");
-                if (!player.extended.values.medalsWeaponFusionRifleKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponFusionRifleKillSpree) {
+                    p.myMedals.mNames.push("medalsWeaponFusionRifleKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponFusionRifleKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponFusionRifleKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponHandCannonHeadshotSpree");
-                if (!player.extended.values.medalsWeaponHandCannonHeadshotSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponHandCannonHeadshotSpree) {
+                    p.myMedals.mNames.push("medalsWeaponHandCannonHeadshotSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponHandCannonHeadshotSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponHandCannonHeadshotSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponMachineGunKillSpree");
-                if (!player.extended.values.medalsWeaponMachineGunKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponMachineGunKillSpree) {
+                    p.myMedals.mNames.push("medalsWeaponMachineGunKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponMachineGunKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponMachineGunKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponPulseRifleKillSpree");
-                if (!player.extended.values.medalsWeaponPulseRifleKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponPulseRifleKillSpree) {
+                    p.myMedals.mNames.push("medalsWeaponPulseRifleKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponPulseRifleKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponPulseRifleKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponRocketLauncherKillSpree");
-                if (!player.extended.values.medalsWeaponRocketLauncherKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponRocketLauncherKillSpree) {
+                    p.myMedals.mNames.push("medalsWeaponRocketLauncherKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponRocketLauncherKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponRocketLauncherKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponScoutRifleKillSpree");
-                if (!player.extended.values.medalsWeaponScoutRifleKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponScoutRifleKillSpree) {
+                    p.myMedals.mNames.push("medalsWeaponScoutRifleKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponScoutRifleKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponScoutRifleKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponShotgunKillSpree");
-                if (!player.extended.values.medalsWeaponShotgunKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponShotgunKillSpree) {
+                    p.myMedals.mNames.push("medalsWeaponShotgunKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponShotgunKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponShotgunKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponSidearmKillSpree");
-                if (!player.extended.values.medalsWeaponSidearmKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponSidearmKillSpree) {
+                    p.myMedals.mNames.push("medalsWeaponSidearmKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponSidearmKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponSidearmKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponSniperRifleHeadshotSpree");
-                if (!player.extended.values.medalsWeaponSniperRifleHeadshotSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponSniperRifleHeadshotSpree) {
+                    p.myMedals.mNames.push("medalsWeaponSniperRifleHeadshotSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponSniperRifleHeadshotSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponSniperRifleHeadshotSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWeaponSwordKillSpree");
-                if (!player.extended.values.medalsWeaponSwordKillSpree) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWeaponSwordKillSpree) {
+                    p.myMedals.mNames.push("medalsWeaponSwordKillSpree");
                     p.myMedals.mValues.push(player.extended.values.medalsWeaponSwordKillSpree.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWeaponSwordKillSpree.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsWinningScore");
-                if (!player.extended.values.medalsWinningScore) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsWinningScore) {
+                    p.myMedals.mNames.push("medalsWinningScore");
                     p.myMedals.mValues.push(player.extended.values.medalsWinningScore.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsWinningScore.weighted.value);
                 }
-                p.myMedals.mNames.push("medalsZoneCapturedBInitial");
-                if (!player.extended.values.medalsZoneCapturedBInitial) {
-                    p.myMedals.mValues.push(0);
-                    p.myMedals.mWeights.push(0);
-                } else {
+                if (!!player.extended.values.medalsZoneCapturedBInitial) {
+                    p.myMedals.mNames.push("medalsZoneCapturedBInitial");
                     p.myMedals.mValues.push(player.extended.values.medalsZoneCapturedBInitial.basic.value);
                     p.myMedals.mWeights.push(player.extended.values.medalsZoneCapturedBInitial.weighted.value);
                 }
@@ -1090,6 +773,11 @@ function getDetails(match) {
 }
 
 const classes = ["Titan", "Hunter", "Warlock"];
+const gameModes = ["None", "", "Story", "Strike", "Raid", "AllPvP", "Patrol", "AllPvE", "PvPIntroduction", 
+                   "ThreeVsThree", "Control", "Lockdown", "Team", "FreeForAll", "TrialsOfOsiris", "Doubles", 
+                   "Nightfall", "Heroic", "AllStrikes", "IronBanner", "AllArena", "Arena", "ArenaChallenge", 
+                   "Elimination", "Rift", "AllMayhem", "MayhemClash", "MayhemRumble", "ZoneControl", "Racing", 
+                   "ArenaElderChallenge", "Supremacy", "PrivateMatchesAll"];
 
 function lookupPlayer(userName) {
     // get the membership id and character id
@@ -1150,6 +838,7 @@ function getGames(membershipId, characterId, finishedCallback, previousDate, mat
                     return {
                         mapName: body.Response.definitions.activities[activity.activityDetails.referenceId].activityName,
                         instanceId: activity.activityDetails.instanceId,
+                        gameType: gameModes[activity.activityDetails.mode],
                         date: moment(activity.period)
                     }
                 }));
@@ -1220,6 +909,7 @@ function initMapObject(date, map, aIId) {
     return {
         date: moment(date).format("YYYY-MM-DD"),
         map: map,
+        gameType: "",
         activityInstanceId: aIId,
         matchWins: 0,
         matchLosses: 0,
@@ -1238,11 +928,13 @@ function initMapObject(date, map, aIId) {
         whash: "",
         wkills: "",
         wpkills: "",
+        gameType: "",
         mCount: 0,
         mNames: "",
         mValues: "",
         mWeights: "",
         pavgKillDist: 0,
+        pavgDeathDist: 0,
         pavgLifespan: 0,
         pavgScoreperKill: 0,
         pavgScoreperLife: 0,
@@ -1256,7 +948,17 @@ function initMapObject(date, map, aIId) {
         wKMelee: 0,
         wKSuper: 0,
         pZonesCaptured: 0,
-        pZonesNeutralized: 0   
+        pZonesNeutralized: 0,
+        psparksCaptured: 0,
+        pslamDunks: 0,
+        pstyleDunks: 0,
+        pdunkKills: 0,
+        pcarrierKills: 0,
+        ptagCaptures: 0,
+        pcapturedYourOwnKill: 0,
+        plostTagToOpponent: 0,
+        precoveredOwnDeadTag: 0,
+        ptagsCapturedPerTagLost: 0
     };
 }
 
@@ -1304,6 +1006,7 @@ function summarize(games) {
         //currentMap.roundRatio = currentMap.roundWins / (currentMap.roundWins + currentMap.roundLosses);
 
         currentMap.activityInstanceId += g.id;
+        currentMap.gameType += g.gameType;
         currentMap.playerScore += g.players[userName].myScore;
         currentMap.playerClass += g.players[userName].myClass;
         currentMap.playerK += g.players[userName].kills;
@@ -1319,6 +1022,7 @@ function summarize(games) {
         currentMap.mValues += g.players[userName].myMedals.mValues;
         currentMap.mWeights += g.players[userName].myMedals.mWeights;
         currentMap.pavgKillDist += g.players[userName].myStats.avgKillDist;
+        currentMap.pavgDeathDist += g.players[userName].myStats.avgDeathDist;
         currentMap.pavgLifespan += g.players[userName].myStats.avgLifespan;
         currentMap.pavgScoreperKill += g.players[userName].myStats.avgScorePerKill;
         currentMap.pavgScoreperLife += g.players[userName].myStats.avgScorePerLife;
@@ -1333,6 +1037,16 @@ function summarize(games) {
         currentMap.wKSuper += g.players[userName].myStats.weaponKillsSuper;
         currentMap.pZonesCaptured += g.players[userName].myStats.zonesCaptured;
         currentMap.pZonesNeutralized += g.players[userName].myStats.zonesNeutralized;
+        currentMap.psparksCaptured += g.players[userName].myStats.sparksCaptured;
+        currentMap.pslamDunks += g.players[userName].myStats.slamDunks;
+        currentMap.pstyleDunks += g.players[userName].myStats.styleDunks;
+        currentMap.pdunkKills += g.players[userName].myStats.dunkKills;
+        currentMap.pcarrierKills += g.players[userName].myStats.carrierKills;
+        currentMap.ptagCaptures += g.players[userName].myStats.tagCaptures;
+        currentMap.pcapturedYourOwnKill += g.players[userName].myStats.capturedYourOwnKill;
+        currentMap.plostTagToOpponent += g.players[userName].myStats.lostTagToOpponent;
+        currentMap.precoveredOwnDeadTag += g.players[userName].myStats.recoveredOwnDeadTag;
+        currentMap.ptagsCapturedPerTagLost += g.players[userName].myStats.tagsCapturedPerTagLost;
     });
 
     //currentMap.matchRatio = Math.floor(currentMap.matchRatio * 100) + "%";
@@ -1346,16 +1060,18 @@ function summarize(games) {
 
     var writer = csv({
         headers: ["Date", "Map", "activityInstanceId", "Matches W", "Matches L", //"Match %", "Rounds W", "Rounds L", "Round %", 
-                  "Match Score", "Player Score", "K", "D", "A", "K/D", "K+A/D", "WHash", "WKills", "WPKills", "Player Class", 
-                  "MCount", "Medal Names", "Medal Values", "Medal Weights", "AvgKillDistance", "AvgLifespan", "AvgScorePerKill", 
-                  "AvgScorePerLife", "LongestKillSpree", "LongestLife", "SecPlayed", "Suicides", "TotalKillDistance", "WBestType", 
-                  "GrenadeKills", "MeleeKills", "SuperKills", "ZonesCaptured", "ZonesNeutralized"
+                  "Match Score", "Player Score", "K", "D", "A", "K/D", "K+A/D", "WHash", "WKills", "WPKills", "GameType", "Player Class", 
+                  "MCount", "Medal Names", "Medal Values", "Medal Weights", "AvgKillDistance", "AvgDeathDistance", "AvgLifespan", 
+                  "AvgScorePerKill", "AvgScorePerLife", "LongestKillSpree", "LongestLife", "SecPlayed", "Suicides", "TotalKillDistance", 
+                  "WBestType", "GrenadeKills", "MeleeKills", "SuperKills", "ZonesCaptured", "ZonesNeutralized", "SparksCaptured", 
+                  "SlamDunks", "StyleDunks", "DunkKills", "CarrierKills", "TagCaptures", "CapturedYourOwnKill", "LostTagToOpponent", 
+                  "RecoveredOwnDeadTag", "TagsCapturedPerTagLost"
         ]
     });
 
     writer.pipe(fs.createWriteStream("./out/" + userName + ".summary.csv"));
     summary.forEach(function (r) { //r.matchRatio, r.roundWins, r.roundLosses, r.roundRatio,
-        writer.write([r.date, r.map, r.activityInstanceId.toString(), r.matchWins, r.matchLosses, r.matchScore, r.playerScore, r.playerK, r.playerD, r.playerA, r.playerKD, r.playerKAD, r.whash, r.wkills, r.wpkills, r.playerClass, r.mCount, r.mNames, r.mValues, r.mWeights, r.pavgKillDist, r.pavgLifespan, r.pavgScoreperKill, r.pavgScoreperLife, r.plongestKillSpree, r.plongestLife, r.pSecPlayed, r.pSuicides, r.ptotKillDist, r.wBestType, r.wKGrenade, r.wKMelee, r.wKSuper, r.pZonesCaptured, r.pZonesNeutralized]);
+        writer.write([r.date, r.map, r.activityInstanceId.toString(), r.matchWins, r.matchLosses, r.matchScore, r.playerScore, r.playerK, r.playerD, r.playerA, r.playerKD, r.playerKAD, r.whash, r.wkills, r.wpkills, r.gameType, r.playerClass, r.mCount, r.mNames, r.mValues, r.mWeights, r.pavgKillDist, r.pavgDeathDist, r.pavgLifespan, r.pavgScoreperKill, r.pavgScoreperLife, r.plongestKillSpree, r.plongestLife, r.pSecPlayed, r.pSuicides, r.ptotKillDist, r.wBestType, r.wKGrenade, r.wKMelee, r.wKSuper, r.pZonesCaptured, r.pZonesNeutralized, r.psparksCaptured, r.pslamDunks, r.pstyleDunks, r.pdunkKills, r.pcarrierKills, r.ptagCaptures, r.pcapturedYourOwnKill, r.plostTagToOpponent, r.precoveredOwnDeadTag, r.ptagsCapturedPerTagLost]);
     });
     writer.end();
 }
