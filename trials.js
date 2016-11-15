@@ -125,7 +125,7 @@ function getDetails(match) {
                     weapons: {whash:[], wkills:[], wpkills:[]},
                     myScore: player.values.score.basic.value,
                     myClass: player.player.characterClass,
-                    myMedals: {mCount: (!!player.extended.values.allMedalsEarned ? player.extended.values.allMedalsEarned.basic.value:0),
+                    myMedals: {mCount:[],
                                mNames:[],
                                mValues:[],
                                mWeights:[]},
@@ -193,6 +193,11 @@ function getDetails(match) {
                             }
                         }
                     }
+                }
+                if (!!player.extended.values.allMedalsEarned) {
+                    p.myMedals.mCount.push(player.extended.values.allMedalsEarned.basic.value);
+                } else {
+                    p.myMedals.mCount.push(0);
                 }
                 if (!!player.extended.values.medalsAbilityArcLightningKillMulti) {
                     p.myMedals.mNames.push("medalsAbilityArcLightningKillMulti");
@@ -1017,7 +1022,7 @@ function summarize(games) {
         currentMap.whash += g.players[userName].weapons.whash;
         currentMap.wkills += g.players[userName].weapons.wkills;
         currentMap.wpkills += g.players[userName].weapons.wpkills;
-        currentMap.mCount += g.players[userName].myMedals.mCount;
+        currentMap.mCount += g.players[userName].myMedals.mCount[0];
         currentMap.mNames += g.players[userName].myMedals.mNames;
         currentMap.mValues += g.players[userName].myMedals.mValues;
         currentMap.mWeights += g.players[userName].myMedals.mWeights;
