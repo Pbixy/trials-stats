@@ -117,9 +117,9 @@ function getDetails(match) {
                     membershipId: player.player.destinyUserInfo.membershipId,
                     lightLevel: player.player.lightLevel,
                     teamName: player.values.team.basic.displayValue,
-                    assists: player.values.assists.basic.displayValue,
-                    kills: player.values.kills.basic.displayValue,
-                    deaths: player.values.deaths.basic.displayValue,
+                    assists: player.values.assists.basic.value,
+                    kills: player.values.kills.basic.value,
+                    deaths: player.values.deaths.basic.value,
                     kdr: player.values.killsDeathsRatio.basic.value,
                     kadr: player.values.killsDeathsAssists.basic.value,
                     weapons: {whash:[], wkills:[], wpkills:[]},
@@ -971,7 +971,7 @@ function summarize(games) {
     games.forEach(function (g) {
         if (!currentMap) {
             currentMap = initMapObject(g.date, g.map, g.id);
-        } else if (currentMap.activityInstanceId !== g.id) {
+        } else if (currentMap.activityInstanceId == g.id) {
             // calc the win %, and K/Ds for map
             //currentMap.matchRatio = Math.floor(currentMap.matchRatio * 100) + "%";
             //currentMap.roundRatio = Math.floor(currentMap.roundRatio * 100) + "%";
@@ -1007,7 +1007,9 @@ function summarize(games) {
         //currentMap.matchRatio = currentMap.matchWins / (currentMap.matchWins + currentMap.matchLosses);
         //currentMap.roundRatio = currentMap.roundWins / (currentMap.roundWins + currentMap.roundLosses);
 
-        currentMap.activityInstanceId += g.id;
+        if (currentMap.activityInstanceId !== g.id) {
+            currentMap.activityInstanceId += g.id;
+        }
         currentMap.gameType += g.gameType;
         currentMap.playerScore += g.players[userName].myScore;
         currentMap.playerClass += g.players[userName].myClass;
@@ -1055,8 +1057,10 @@ function summarize(games) {
     //currentMap.roundRatio = Math.floor(currentMap.roundRatio * 100) + "%";
 
     var matches = currentMap.matchWins + currentMap.matchLosses;
-    currentMap.playerKD = (currentMap.playerKD / matches).toFixed(2).toString();
-    currentMap.playerKAD = (currentMap.playerKAD / matches).toFixed(2).toString();
+    if (matches > 1) {
+        currentMap.playerKD = (currentMap.playerKD / matches).toFixed(2).toString();
+        currentMap.playerKAD = (currentMap.playerKAD / matches).toFixed(2).toString();
+    }
 
     summary.push(currentMap);
 
