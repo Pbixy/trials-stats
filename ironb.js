@@ -127,33 +127,32 @@ function getDetails(match) {
                     myClass: player.player.characterClass,
                     //myMedalsCnt: (!!player.extended.values.allMedalsEarned ? player.extended.values.allMedalsEarned.basic.value:0),
                     //myMedals: {mNames:[], mValues:[], mWeights:[]},
-                    myStats: {avgKillDist: (!!player.extended.values.averageKillDistance ? player.extended.values.averageKillDistance.basic.value.toString():""),
-                              avgDeathDist: (!!player.extended.values.averageDeathDistance ? player.extended.values.averageDeathDistance.basic.value.toString():""),
-                              avgLifespan: (!!player.extended.values.averageLifespan ? player.extended.values.averageLifespan.basic.value.toString():""),
-                              avgScorePerKill: (!!player.extended.values.averageScorePerKill ? player.extended.values.averageScorePerKill.basic.value.toString():""),
-                              avgScorePerLife: (!!player.extended.values.averageScorePerLife ? player.extended.values.averageScorePerLife.basic.value.toString():""),
-                              longestKillSpree: (!!player.extended.values.longestKillSpree ? player.extended.values.longestKillSpree.basic.value.toString():""),
-                              longestSingleLife: (!!player.extended.values.longestSingleLife ? player.extended.values.longestSingleLife.basic.value.toString():""),
-                              secondsPlayed: (!!player.extended.values.secondsPlayed ? player.extended.values.secondsPlayed.basic.value.toString():""),
-                              suicides: (!!player.extended.values.suicides ? player.extended.values.suicides.basic.value.toString():""),
-                              totalKillDistance: (!!player.extended.values.totalKillDistance ? player.extended.values.totalKillDistance.basic.value.toString():""),
-                              weaponBestType: (!!player.extended.values.weaponBestType ? player.extended.values.weaponBestType.basic.displayValue.toString():""),
-                              weaponKillsGrenade: (!!player.extended.values.weaponKillGrenade ? player.extended.values.weaponKillsGrenade.basic.value.toString():""),
-                              weaponKillsMelee: (!!player.extended.values.weaponKillMelee ? player.extended.values.weaponKillsMelee.basic.value.toString():""),
-                              weaponKillsSuper: (!!player.extended.values.weaponKillSuper ? player.extended.values.weaponKillsSuper.basic.value.toString():""),
-                              zonesCaptured: (!!player.extended.values.zonesCaptured ? player.extended.values.zonesCaptured.basic.value.toString():""),
-                              zonesNeutralized: (!!player.extended.values.zonesNeutralized ? player.extended.values.zonesNeutralized.basic.value.toString():""),
-                              sparksCaptured: (!!player.extended.values.sparksCaptured ? player.extended.values.sparksCaptured.basic.value.toString():""),
-                              slamDunks: (!!player.extended.values.slamDunks ? player.extended.values.slamDunks.basic.value.toString():""),
-                              styleDunks: (!!player.extended.values.styleDunks ? player.extended.values.styleDunks.basic.value.toString():""),
-                              dunkKills: (!!player.extended.values.dunkKills ? player.extended.values.dunkKills.basic.value.toString():""),
-                              carrierKills: (!!player.extended.values.carrierKills ? player.extended.values.carrierKills.basic.value.toString():""),
-                              tagCaptures: (!!player.extended.values.tagCaptures ? player.extended.values.tagCaptures.basic.value.toString():""),
-                              capturedYourOwnKill: (!!player.extended.values.capturedYourOwnKill ? player.extended.values.capturedYourOwnKill.basic.value.toString():""),
-                              lostTagToOpponent: (!!player.extended.values.lostTagToOpponent ? player.extended.values.lostTagToOpponent.basic.value.toString():""),
-                              recoveredOwnDeadTag: (!!player.extended.values.recoveredOwnDeadTag ? player.extended.values.recoveredOwnDeadTag.basic.value.toString():""),
-                              tagsCapturedPerTagLost: (!!player.extended.values.tagsCapturedPerTagLost ? player.extended.values.tagsCapturedPerTagLost.basic.value.toString():"")
-                             }          
+                    avgKillDist: (!!player.extended.values.averageKillDistance ? player.extended.values.averageKillDistance.basic.value:0),
+                    avgDeathDist: (!!player.extended.values.averageDeathDistance ? player.extended.values.averageDeathDistance.basic.value:0),
+                    avgLifespan: (!!player.extended.values.averageLifespan ? player.extended.values.averageLifespan.basic.value:0),
+                    avgScorePerKill: (!!player.extended.values.averageScorePerKill ? player.extended.values.averageScorePerKill.basic.value:0),
+                    avgScorePerLife: (!!player.extended.values.averageScorePerLife ? player.extended.values.averageScorePerLife.basic.value:0),
+                    longestKillSpree: (!!player.extended.values.longestKillSpree ? player.extended.values.longestKillSpree.basic.value:0),
+                    longestSingleLife: (!!player.extended.values.longestSingleLife ? player.extended.values.longestSingleLife.basic.value:0),
+                    secondsPlayed: (!!player.extended.values.secondsPlayed ? player.extended.values.secondsPlayed.basic.value:0),
+                    suicides: (!!player.extended.values.suicides ? player.extended.values.suicides.basic.value:0),
+                    totalKillDistance: (!!player.extended.values.totalKillDistance ? player.extended.values.totalKillDistance.basic.value:0),
+                    weaponBestType: (!!player.extended.values.weaponBestType ? player.extended.values.weaponBestType.basic.displayValue.toString():""),
+                    weaponKillsGrenade: (!!player.extended.values.weaponKillGrenade ? player.extended.values.weaponKillsGrenade.basic.value:0),
+                    weaponKillsMelee: (!!player.extended.values.weaponKillMelee ? player.extended.values.weaponKillsMelee.basic.value:0),
+                    weaponKillsSuper: (!!player.extended.values.weaponKillSuper ? player.extended.values.weaponKillsSuper.basic.value:0),
+                    zonesCaptured: (!!player.extended.values.zonesCaptured ? player.extended.values.zonesCaptured.basic.value:0),
+                    zonesNeutralized: (!!player.extended.values.zonesNeutralized ? player.extended.values.zonesNeutralized.basic.value:0),
+                    sparksCaptured: (!!player.extended.values.sparksCaptured ? player.extended.values.sparksCaptured.basic.value:0),
+                    slamDunks: (!!player.extended.values.slamDunks ? player.extended.values.slamDunks.basic.value:0),
+                    styleDunks: (!!player.extended.values.styleDunks ? player.extended.values.styleDunks.basic.value:0),
+                    dunkKills: (!!player.extended.values.dunkKills ? player.extended.values.dunkKills.basic.value:0),
+                    carrierKills: (!!player.extended.values.carrierKills ? player.extended.values.carrierKills.basic.value:0),
+                    tagCaptures: (!!player.extended.values.tagCaptures ? player.extended.values.tagCaptures.basic.value:0),
+                    capturedYourOwnKill: (!!player.extended.values.capturedYourOwnKill ? player.extended.values.capturedYourOwnKill.basic.value:0),
+                    lostTagToOpponent: (!!player.extended.values.lostTagToOpponent ? player.extended.values.lostTagToOpponent.basic.value:0),
+                    recoveredOwnDeadTag: (!!player.extended.values.recoveredOwnDeadTag ? player.extended.values.recoveredOwnDeadTag.basic.value:0),
+                    tagsCapturedPerTagLost: (!!player.extended.values.tagsCapturedPerTagLost ? player.extended.values.tagsCapturedPerTagLost.basic.value:0)
                 };
                 
                 if (!player.extended.weapons) {
@@ -936,32 +935,32 @@ function initMapObject(date, map, aIId) {
 //         mNames: "",
 //         mValues: "",
 //         mWeights: "",
-        pavgKillDist: "",
-        pavgDeathDist: "",
-        pavgLifespan: "",
-        pavgScoreperKill: "",
-        pavgScoreperLife: "",
-        plongestKillSpree: "",
-        plongestLife: "",
-        pSecPlayed: "",
-        pSuicides: "",
-        ptotKillDist: "",
+        pavgKillDist: 0,
+        pavgDeathDist: 0,
+        pavgLifespan: 0,
+        pavgScoreperKill: 0,
+        pavgScoreperLife: 0,
+        plongestKillSpree: 0,
+        plongestLife: 0,
+        pSecPlayed: 0,
+        pSuicides: 0,
+        ptotKillDist: 0,
         wBestType: "",
-        wKGrenade: "",
-        wKMelee: "",
-        wKSuper: "",
-        pZonesCaptured: "",
-        pZonesNeutralized: "",
-        psparksCaptured: "",
-        pslamDunks: "",
-        pstyleDunks: "",
-        pdunkKills: "",
-        pcarrierKills: "",
-        ptagCaptures: "",
-        pcapturedYourOwnKill: "",
-        plostTagToOpponent: "",
-        precoveredOwnDeadTag: "",
-        ptagsCapturedPerTagLost: ""
+        wKGrenade: 0,
+        wKMelee: 0,
+        wKSuper: 0,
+        pZonesCaptured: 0,
+        pZonesNeutralized: 0,
+        psparksCaptured: 0,
+        pslamDunks: 0,
+        pstyleDunks: 0,
+        pdunkKills: 0,
+        pcarrierKills: 0,
+        ptagCaptures: 0,
+        pcapturedYourOwnKill: 0,
+        plostTagToOpponent: 0,
+        precoveredOwnDeadTag: 0,
+        ptagsCapturedPerTagLost: 0
     };
 }
 
@@ -1024,32 +1023,32 @@ function summarize(games) {
 //         currentMap.mNames += g.players[userName].myMedals.mNames;
 //         currentMap.mValues += g.players[userName].myMedals.mValues;
 //         currentMap.mWeights += g.players[userName].myMedals.mWeights;
-        currentMap.pavgKillDist += g.players[userName].myStats.avgKillDist;
-        currentMap.pavgDeathDist += g.players[userName].myStats.avgDeathDist;
-        currentMap.pavgLifespan += g.players[userName].myStats.avgLifespan;
-        currentMap.pavgScoreperKill += g.players[userName].myStats.avgScorePerKill;
-        currentMap.pavgScoreperLife += g.players[userName].myStats.avgScorePerLife;
-        currentMap.plongestKillSpree += g.players[userName].myStats.longestKillSpree;
-        currentMap.plongestLife += g.players[userName].myStats.longestSingleLife;
-        currentMap.pSecPlayed += g.players[userName].myStats.secondsPlayed;
-        currentMap.pSuicides += g.players[userName].myStats.suicides;
-        currentMap.ptotKillDist += g.players[userName].myStats.totalKillDistance;
-        currentMap.wBestType += g.players[userName].myStats.weaponBestType;
-        currentMap.wKGrenade += g.players[userName].myStats.weaponKillsGrenade;
-        currentMap.wKMelee += g.players[userName].myStats.weaponKillsMelee;
-        currentMap.wKSuper += g.players[userName].myStats.weaponKillsSuper;
-        currentMap.pZonesCaptured += g.players[userName].myStats.zonesCaptured;
-        currentMap.pZonesNeutralized += g.players[userName].myStats.zonesNeutralized;
-        currentMap.psparksCaptured += g.players[userName].myStats.sparksCaptured;
-        currentMap.pslamDunks += g.players[userName].myStats.slamDunks;
-        currentMap.pstyleDunks += g.players[userName].myStats.styleDunks;
-        currentMap.pdunkKills += g.players[userName].myStats.dunkKills;
-        currentMap.pcarrierKills += g.players[userName].myStats.carrierKills;
-        currentMap.ptagCaptures += g.players[userName].myStats.tagCaptures;
-        currentMap.pcapturedYourOwnKill += g.players[userName].myStats.capturedYourOwnKill;
-        currentMap.plostTagToOpponent += g.players[userName].myStats.lostTagToOpponent;
-        currentMap.precoveredOwnDeadTag += g.players[userName].myStats.recoveredOwnDeadTag;
-        currentMap.ptagsCapturedPerTagLost += g.players[userName].myStats.tagsCapturedPerTagLost;
+        currentMap.pavgKillDist += g.players[userName].avgKillDist;
+        currentMap.pavgDeathDist += g.players[userName].avgDeathDist;
+        currentMap.pavgLifespan += g.players[userName].avgLifespan;
+        currentMap.pavgScoreperKill += g.players[userName].avgScorePerKill;
+        currentMap.pavgScoreperLife += g.players[userName].avgScorePerLife;
+        currentMap.plongestKillSpree += g.players[userName].longestKillSpree;
+        currentMap.plongestLife += g.players[userName].longestSingleLife;
+        currentMap.pSecPlayed += g.players[userName].secondsPlayed;
+        currentMap.pSuicides += g.players[userName].suicides;
+        currentMap.ptotKillDist += g.players[userName].totalKillDistance;
+        currentMap.wBestType += g.players[userName].weaponBestType;
+        currentMap.wKGrenade += g.players[userName].weaponKillsGrenade;
+        currentMap.wKMelee += g.players[userName].weaponKillsMelee;
+        currentMap.wKSuper += g.players[userName].weaponKillsSuper;
+        currentMap.pZonesCaptured += g.players[userName].zonesCaptured;
+        currentMap.pZonesNeutralized += g.players[userName].zonesNeutralized;
+        currentMap.psparksCaptured += g.players[userName].sparksCaptured;
+        currentMap.pslamDunks += g.players[userName].slamDunks;
+        currentMap.pstyleDunks += g.players[userName].styleDunks;
+        currentMap.pdunkKills += g.players[userName].dunkKills;
+        currentMap.pcarrierKills += g.players[userName].carrierKills;
+        currentMap.ptagCaptures += g.players[userName].tagCaptures;
+        currentMap.pcapturedYourOwnKill += g.players[userName].capturedYourOwnKill;
+        currentMap.plostTagToOpponent += g.players[userName].lostTagToOpponent;
+        currentMap.precoveredOwnDeadTag += g.players[userName].recoveredOwnDeadTag;
+        currentMap.ptagsCapturedPerTagLost += g.players[userName].tagsCapturedPerTagLost;
     });
 
     //currentMap.matchRatio = Math.floor(currentMap.matchRatio * 100) + "%";
