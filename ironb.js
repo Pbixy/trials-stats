@@ -20,7 +20,6 @@ var games = [];
 const gameDoneEmitter = new GameDoneEmitter();
 gameDoneEmitter.on('gameDone', function (game) {
     this.gamesDone += 1;
-debugger;
     pBar.tick();
 debugger;
     games.push(game);
@@ -31,11 +30,8 @@ debugger;
 
         console.log('\n');
 
-debugger;
         summarize(sorted);
-debugger;
         saveDetails(sorted);
-debugger;
         console.log("Finished!");
     }
 });
@@ -976,14 +972,14 @@ function summarize(games) {
     games.forEach(function (g) {
         if (!currentMap) {
             currentMap = initMapObject(g.date, g.map, g.id);
-        } else if (currentMap.activityInstanceId == g.id) {
+        } else if (currentMap.activityInstanceId !== g.id) {
             // calc the win %, and K/Ds for map
             //currentMap.matchRatio = Math.floor(currentMap.matchRatio * 100) + "%";
             //currentMap.roundRatio = Math.floor(currentMap.roundRatio * 100) + "%";
 
             var matches = currentMap.matchWins + currentMap.matchLosses;
-            currentMap.playerKD = (currentMap.playerKD / matches).toFixed(2).toString();
-            currentMap.playerKAD = (currentMap.playerKAD / matches).toFixed(2).toString();
+            currentMap.playerKD = (currentMap.playerKD / matches);
+            currentMap.playerKAD = (currentMap.playerKAD / matches);
 
             summary.push(currentMap);
             currentMap = initMapObject(g.date, g.map, g.id);
@@ -1063,10 +1059,9 @@ function summarize(games) {
 
     var matches = currentMap.matchWins + currentMap.matchLosses;
     if (matches > 1) {
-        currentMap.playerKD = (currentMap.playerKD / matches).toFixed(2).toString();
-        currentMap.playerKAD = (currentMap.playerKAD / matches).toFixed(2).toString();
+        currentMap.playerKD = (currentMap.playerKD / matches);
+        currentMap.playerKAD = (currentMap.playerKAD / matches);
     }
-debugger;
     summary.push(currentMap);
 
     var writer = csv({
