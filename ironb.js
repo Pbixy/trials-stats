@@ -20,7 +20,9 @@ var games = [];
 const gameDoneEmitter = new GameDoneEmitter();
 gameDoneEmitter.on('gameDone', function (game) {
     this.gamesDone += 1;
+debugger;
     pBar.tick();
+debugger;
     games.push(game);
     if (this.gamesDone === this.gamesStarted) {
         var sorted = games.sort(function (a, b) {
@@ -29,8 +31,11 @@ gameDoneEmitter.on('gameDone', function (game) {
 
         console.log('\n');
 
+debugger;
         summarize(sorted);
+debugger;
         saveDetails(sorted);
+debugger;
         console.log("Finished!");
     }
 });
@@ -1061,7 +1066,7 @@ function summarize(games) {
         currentMap.playerKD = (currentMap.playerKD / matches).toFixed(2).toString();
         currentMap.playerKAD = (currentMap.playerKAD / matches).toFixed(2).toString();
     }
-
+debugger;
     summary.push(currentMap);
 
     var writer = csv({
